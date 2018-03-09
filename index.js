@@ -25,9 +25,10 @@ function put(tableName, key, value) {
 Do it yourself. */
 
 const readlineSync = require('readline-sync');
-const dataMate = require('./controllers/webUI');
-const CLI = require('./CLI');
-let database = [];
+const dataMate = require('./controller');
+const model = require('./model');
+const textProcessor = require('./text-processor');
+let database = {};
 
 const selector = () => {
   console.clear();
@@ -37,9 +38,12 @@ const selector = () => {
   switch (selectorOption) {
     case 0:
       console.clear();
+      textProcessor.inLoop();
       break;
     case 1:
       console.clear();
+      dataMate.listen(8000);
+      dataMate.put(database);
       console.log('Server running on port 8000.');
       break;
     default:
@@ -50,9 +54,7 @@ const selector = () => {
   }
 };
 
-CLI.load();
-dataMate.listen(8000);
-dataMate.put(database);
+model.load();
 selector();
 
 module.exports = {
