@@ -77,6 +77,27 @@ const exit = () => {
   process.exit();
 };
 
+const help = () => {
+  console.log('Here are the commands:                               (Uppercase is important!)');
+  console.log();
+  console.log('GETALL                                               --> Shows the whole database.');
+  console.log('CREATE <tablename>                                   --> Creates a new table.');
+  console.log('PUT <key> <value> IN <tablename>                     --> Puts a new key-value pair into the selected table.');
+  console.log('GET <key> FROM <tablename>                           --> Shows the value of a key in the selected table.');
+  console.log();
+  console.log('UPDATETABLE <tablename> TO <newTablename>            --> Updates the tablename.');
+  console.log('UPDATEKEY <key> TO <newKey> IN <tablename>           --> Updates the key in the selected table.');
+  console.log('UPDATEVALUE <value> TO <newValue> IN <tablename>     --> Updates the value in the selected table.');
+  console.log();
+  console.log('DELETETABLE <tablename>                              --> Deletes the selected table.');
+  console.log('DELETEKEY <key> IN <tablename>                       --> Deletes the key in the selected table.');
+  console.log('DELETEVALUE <value> IN <tablename>                   --> Deletes the value in the selected table.');
+  console.log();
+  console.log('SAVE                                                 --> Saves the database into a file.');
+  console.log('LOAD                                                 --> Loads the last saved database.');
+  console.log('EXIT or QUIT                                         --> Exit the program.');
+};
+
 module.exports = {
   save: save,
   load: load,
@@ -90,5 +111,6 @@ module.exports = {
   deleteByTable: deleteByTable,
   deleteByKey: deleteByKey,
   deleteByValue: deleteByValue,
-  exit: exit
+  exit: exit,
+  help: help
 };

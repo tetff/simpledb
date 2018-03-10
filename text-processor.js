@@ -1,16 +1,20 @@
 const readLineSync = require('readline-sync');
 const model = require('./model');
 
-let loop = true;
-
 const textProcessor = (commandin) => {
   let command = commandin.split(' ');
+
+  if (command[0] === 'HELP') {
+    model.help();
+    return readLineSync.keyIn('Press a key to return.');
+  }
+
   if (command[0] === 'CREATE') {
     model.createTable(command[1]);
     return readLineSync.keyIn('Press a key to return.');
   }
 
-  if (command[0] === 'PUT' && command[3] === 'TO') {
+  if (command[0] === 'PUT' && command[3] === 'IN') {
     model.put(command[1], command[2], command[4]);
     return readLineSync.keyIn('Press a key to return.');
   }
@@ -56,17 +60,30 @@ const textProcessor = (commandin) => {
   }
 
   if (command[0] === 'SAVE') {
-    return model.save();
+    model.save();
+    return readLineSync.keyIn('Press a key to return.');
+  }
+
+  if (command[0] === 'LOAD') {
+    model.load();
+    return readLineSync.keyIn('Press a key to return.');
   }
 
   if (command[0] === 'EXIT' || command[0] === 'QUIT') {
     return model.exit();
   }
+
+  console.log('Invalid command.');
+  return readLineSync.keyIn('Press a key to return.');
 };
 
 const inLoop = () => {
-  while (loop) {
-    textProcessor();
+  while (true) {
+    console.clear();
+    console.log('Type HELP for the command list.');
+    console.log();
+    let commandIn = readLineSync.question('Awaiting commands: ');
+    textProcessor(commandIn);
   }
 };
 

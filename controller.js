@@ -7,6 +7,11 @@ let getAll = (req, res) => {
 };
 dataMate.get('/', getAll);
 
+let help = (req, res) => {
+  res.send(model.help());
+};
+dataMate.get('/help', help);
+
 let get = (req, res) => {
   let table = req.params.table;
   let key = req.params.key;
@@ -15,7 +20,7 @@ let get = (req, res) => {
 dataMate.get('/:table/:key', get);
 
 let createTable = (req, res) => {
-  let table = req.query.data;
+  let table = req.query.table;
   model.createTable(table);
   res.json({table: table, action: 'created'});
 };
@@ -30,18 +35,53 @@ let put = (req, res) => {
 };
 dataMate.post('/:table', put);
 
-let update = (req, res) => {
-  let key = parseInt(req.params.key);
-  let newValue = req.query.data;
-  let newData = model.update(key, newValue);
-  res.json(newData);
+let updateTable = (req, res) => {
+  let table = req.params.table;
+  let newTable = req.query.table;
+  model.updateTable(table, newTable);
+  res.json({table: table, newTable: newTable, action: 'updated'});
 };
-dataMate.put('/:key', update);
+dataMate.put('/:table', updateTable);
 
-let destroy = (req, res) => {
-  let key = parseInt(req.params.key);
-  res.json(model.delete(key));
+let updateKey = (req, res) => {
+  let table = req.params.table;
+  let key = req.params.key;
+  let newKey = req.query.key;
+  model.updateKey(key, newKey, table);
+  res.json({key: key, newKey: newKey, action: 'updated'});
 };
-dataMate.delete('/:key', destroy);
+dataMate.put('/:table/:key', updateKey);
+
+let updateValue = (req, res) => {
+  let value = req.params.value;
+  let newValue = req.query.data;
+  let table = req.params.table;
+  model.updateValue(value, newValue, table);
+  res.json({value: value, newValue: newValue, action: 'updated'});
+};
+dataMate.put('/:table/:key/:value', updateValue);
+
+let destroyTable = (req, res) => {
+  let table = req.params.key;
+  model.deleteByTable(table);
+  res.json({table: table, action: 'deleted'});
+};
+dataMate.delete('/:table', destroyTable);
+
+let destroyKey = (req, res) => {
+  let table = req.params.table;
+  let key = req.params.key;
+  model.deleteByKey(key, table);
+  res.json({key: key, action: 'deleted'});
+};
+dataMate.delete('/:table/:key', destroyKey);
+
+let destroyValue = (res, req) => {
+  let table = req.params.table;
+  let value = req.params.value;
+  model.deleteByValue(value, table);
+  res.json({value: value, action: 'deleted'});
+};
+dataMate.delete('/:table/:key/:value', destroyValue);
 
 module.exports = dataMate;
