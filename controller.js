@@ -59,7 +59,7 @@ let updateValue = (req, res) => {
   model.updateValue(value, newValue, table);
   res.json({value: value, newValue: newValue, action: 'updated'});
 };
-dataMate.put('/:table/:key/:value', updateValue);
+dataMate.put('/:table/:value', updateValue);
 
 let destroyTable = (req, res) => {
   let table = req.params.key;
@@ -82,6 +82,6 @@ let destroyValue = (res, req) => {
   model.deleteByValue(value, table);
   res.json({value: value, action: 'deleted'});
 };
-dataMate.delete('/:table/:key/:value', destroyValue);
+dataMate.delete('/:table/:value', destroyValue);
 
 module.exports = dataMate;
