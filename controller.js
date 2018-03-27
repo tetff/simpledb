@@ -19,6 +19,12 @@ let get = (req, res) => {
 };
 dataMate.get('/:table/:key', get);
 
+let getTable = (req, res) => {
+  let table = req.params.table;
+  res.json(model.getTable(table));
+};
+dataMate.get('/:table', getTable);
+
 let createTable = (req, res) => {
   let table = req.query.table;
   model.createTable(table);
