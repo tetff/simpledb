@@ -12,6 +12,11 @@ let help = (req, res) => {
 };
 dataMate.get('/help', help);
 
+let save = (req, res) => {
+  res.send(model.save());
+};
+dataMate.save('/save', save);
+
 let get = (req, res) => {
   let table = req.params.table;
   let key = req.params.key;

@@ -3,7 +3,7 @@ const indexDB = require('./index');
 
 function save () {
   fileManager.writeFileSync('db.json', JSON.stringify(indexDB.database), 'utf-8');
-  console.log('Database has been saved');
+  return 'Database has been saved';
 }
 
 function load () {
@@ -13,12 +13,12 @@ function load () {
 
 function createTable (tableName) {
   indexDB.database[tableName] = {};
-  console.log(tableName, 'table has been created.');
+  return tableName + ' table has been created.';
 }
 
 function put (key, value, tableName) {
   indexDB.database[tableName][key] = value;
-  console.log(key, value, 'key value pair has been inserted into', tableName + '.');
+  return key + ' ' + value + ' key value pair has been inserted into ' + tableName + '.';
 }
 
 function get (key, tableName) {
@@ -41,40 +41,40 @@ const updateTable = (tableName, newTableName) => {
   let temp = '';
   temp = indexDB.database[tableName];
   indexDB.database[newTableName] = temp;
-  console.log('Table', tableName, 'has been updated to', newTableName + '.');
+  return 'Table ' + tableName + ' has been updated to ' + newTableName + '.';
 };
 
 const updateKey = (key, newKey, tableName) => {
   let temp = '';
   temp = indexDB.database[tableName][key];
   indexDB.database[tableName][key] = temp;
-  console.log('Entry with the key', key, 'has been updated to', newKey, 'in the', tableName, 'table.');
+  return 'Entry with the key ' + key + ' has been updated to ' + newKey + ' in the ' + tableName + ' table.';
 };
 
 const updateValue = (value, newValue, tableName) => {
   for (let i in indexDB.database[tableName]) {
     if (indexDB.database[tableName][i] === value) {
       indexDB.database[tableName][i] = newValue;
-      console.log('Entry with the value', value, 'has been updated to', newValue, 'in the', tableName, 'table.');
+      return 'Entry with the value ' + value + ' has been updated to ' + newValue + ' in the ' + tableName + ' table.';
     }
   }
 };
 
 const deleteByTable = (tableName) => {
   delete indexDB.database[tableName];
-  console.log('Table', tableName, 'has been deleted.');
+  return 'Table ' + tableName + ' has been deleted.';
 };
 
 function deleteByKey (key, tableName) {
   delete indexDB.database[tableName][key];
-  console.log('Entry with the key', key, 'has been deleted from', tableName + '.');
+  return 'Entry with the key ' + key + ' has been deleted from ' + tableName + '.';
 }
 
 function deleteByValue (value, tableName) {
   for (let i in indexDB.database[tableName]) {
     if (indexDB.database[tableName][i] === value) {
       delete indexDB.database[tableName][i];
-      console.log('Entry with the value', value, 'has been deleted from', tableName + '.');
+      return 'Entry with the value ' + value + ' has been deleted from ' + tableName + '.';
     }
   }
 }

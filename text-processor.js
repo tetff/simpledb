@@ -9,11 +9,11 @@ const textProcessor = (commandin) => {
   }
 
   if (command[0] === 'CREATE') {
-    model.createTable(command[1]);
+    console.log(model.createTable(command[1]));
   }
 
   if (command[0] === 'PUT' && command[3] === 'IN') {
-    model.put(command[1], command[2], command[4]);
+    console.log(model.put(command[1], command[2], command[4]));
   }
 
   if (command[0] === 'GET' && command[2] === 'FROM') {
@@ -29,35 +29,35 @@ const textProcessor = (commandin) => {
   }
 
   if (command[0] === 'UPDATETABLE' && command[2] === 'TO') {
-    model.updateTable(command[1], command[3]);
+    console.log(model.updateTable(command[1], command[3]));
   }
 
   if (command[0] === 'UPDATEKEY' && command[2] === 'TO' && command[4] === 'IN') {
-    model.updateKey(command[1], command[3], command[5]);
+    console.log(model.updateKey(command[1], command[3], command[5]));
   }
 
   if (command[0] === 'UPDATEVALUE' && command[2] === 'TO' && command[4] === 'IN') {
-    model.updateValue(command[1], command[3], command[5]);
+    console.log(model.updateValue(command[1], command[3], command[5]));
   }
 
   if (command[0] === 'DELETETABLE') {
-    model.deleteByTable(command[1]);
+    console.log(model.deleteByTable(command[1]));
   }
 
   if (command[0] === 'DELETEBYKEY' && command[2] === 'FROM') {
-    model.deleteByKey(command[1], command[3]);
+    console.log(model.deleteByKey(command[1], command[3]));
   }
 
   if (command[0] === 'DELETEBYVALUE' && command[2] === 'FROM') {
-    model.deleteByValue(command[1], command[3]);
+    console.log(model.deleteByValue(command[1], command[3]));
   }
 
   if (command[0] === 'SAVE') {
-    model.save();
+    console.log(model.save());
   }
 
   if (command[0] === 'LOAD') {
-    model.load();
+    console.log(model.load());
   }
 
   if (command[0] === 'EXIT' || command[0] === 'QUIT') {
@@ -68,10 +68,9 @@ const textProcessor = (commandin) => {
 };
 
 const inLoop = () => {
+  console.log('Type HELP for the command list.');
+  console.log();
   while (true) {
-    console.clear();
-    console.log('Type HELP for the command list.');
-    console.log();
     let commandIn = readLineSync.question('Awaiting commands: ');
     textProcessor(commandIn);
   }
